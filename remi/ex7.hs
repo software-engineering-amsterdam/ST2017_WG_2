@@ -26,8 +26,9 @@ maxNine n = if n > 9 then (n - 9) else n
 -- Double every second digit in the list.
 -- First, I solved this using zipWith (*) n [1,2,1,2,1,2,1,2,1,2,1].
 -- However, using a list like that does not look very elegant and also
--- causes the function only to work correctly with lists of odd length up to 11.
--- On this Stackoverflow answer https://stackoverflow.com/a/17383354, I found
+-- causes the function only to work correctly with lists of odd length up to 11,
+-- but credit card numbers have different lengths.
+-- On https://stackoverflow.com/a/17383354 I found
 -- using the cycle function would be a nice way to make the function work
 -- for every list length.
 doubleEverySecond :: [Integer] -> [Integer]
