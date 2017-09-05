@@ -1,8 +1,13 @@
 -- Started at 10:25, finished at 12:15
+-- Started making the tests at 14:45
 
 module Lab1 where
 import Data.List
 import Test.QuickCheck
+
+infix 1 -->
+(-->) :: Bool -> Bool -> Bool
+p --> q = (not p) || q
 
 -- Taking the 10 modulus of n gives you its last digit, which we add to a list. Repeating this with n divided by 10
 -- (as it's a integer division, this will 'drop' the last digit) until we get to zero, results in a conversion
@@ -32,7 +37,7 @@ maxNine n = if n > 9 then (n - 9) else n
 -- using the cycle function would be a nice way to make the function work
 -- for every list length.
 doubleEverySecond :: [Integer] -> [Integer]
-doubleEverySecond n = reverse (map maxNine (zipWith (*) (reverse n) (cycle [1,2])))
+doubleEverySecond n = map maxNine (zipWith (*) (reverse n) (cycle [1,2]))
 
 luhn :: Integer -> Bool
 luhn n = sum (doubleEverySecond (toDigits n)) `mod` 10 == 0
@@ -55,3 +60,29 @@ isVisa n = validLength && head digits == 4 && luhn n
     where digits = toDigits n
           cardLength = length digits
           validLength = cardLength == 13 || cardLength == 16 || cardLength == 19
+
+-- I use a list of known credit card numbers to be correct/incorrect to validate the algorithms
+-- Provided by getcreditcardnumbers.com, a website that provides correct but unused credit card
+-- numbers for testing purposes. To test the algorithms thoroughly, (a lot) more test numbers would be
+-- needed. For readability, I use a relatively small list.
+-- I chose not to use an own generator of credit card numbers, because that generator should in theory
+-- be tested as well, by the Luhn algorithm which is not tested yet, and so forth... I think using a list
+-- of numbers from a source known to be true, is more reliable.
+failLuhn = [344481537543486, 376280794828510, 346651491043370, 345357337887990, 343340493620110]
+americanExpressTest = [344481537543487, 376280794828511, 346651491043371, 345357337887994, 343340493620112]
+masterTest = [5338156600486452, 5553392900618316, 5434728425576346, 5302466422363363, 5354593832245430]
+visaTest = [4024007194739826, 4929812526240260, 4485042135718573, 4716277853485069, 4929404773979426]
+
+main = do
+        quickCheck (\ x -> (x >= 0 && x < length allNumbers) --> (luhn (allNumbers!!x)))
+        quickCheck (\ x -> (x >= 0 && x < length failLuhn) --> (luhn (failLuhn!!x) == False))
+        quickCheck (\ x -> (x >= 0 && x < length americanExpressTest) --> (isAmericanExpress (americanExpressTest!!x)))
+        quickCheck (\ x -> (x >= 0 && x < length masterVisa) --> (isAmericanExpress (masterVisa!!x) == False))
+        quickCheck (\ x -> (x >= 0 && x < length masterTest) --> (isMaster (masterTest!!x)))
+        quickCheck (\ x -> (x >= 0 && x < length americanVisa) --> (isMaster (americanVisa!!x) == False))
+        quickCheck (\ x -> (x >= 0 && x < length visaTest) --> (isVisa (visaTest!!x)))
+        quickCheck (\ x -> (x >= 0 && x < length americanMaster) --> (isVisa (americanMaster!!x) == False))
+          where allNumbers = visaTest ++ masterTest ++ americanExpressTest
+                masterVisa = masterTest++visaTest
+                americanVisa = americanExpressTest++visaTest
+                americanMaster = americanExpressTest++masterTest
