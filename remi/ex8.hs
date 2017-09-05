@@ -1,4 +1,4 @@
--- Started at 13:15, stopped (not finished) at 14:25
+-- Started at 13:15, stopped 15:30
 
 module Lab1 where
 import Data.List
