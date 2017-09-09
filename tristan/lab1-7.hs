@@ -4,6 +4,7 @@ import Data.List
 import Test.QuickCheck
 
 -- For cases where luhn numbers are needed the following generator is used
+-- (this is correct when the luhn function used is correct)
 generateLuhnInteger :: Gen Integer
 generateLuhnInteger = abs `fmap` (arbitrary :: Gen Integer) `suchThat` (luhn)
 
