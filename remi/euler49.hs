@@ -1,4 +1,4 @@
--- Started at 16:15
+-- Started at 11:45, finished at 12:15
 module Lab1 where
 import Data.List
 import Test.QuickCheck
