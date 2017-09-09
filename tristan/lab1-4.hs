@@ -7,12 +7,6 @@
 -- This took ~20 minutes
 
 import Data.List
-import Test.QuickCheck
-
--- For cases where natural numbers are needed (positive integers) the following
--- generator is used
-generatePositiveInt :: Gen Int
-generatePositiveInt = abs `fmap` (arbitrary :: Gen Int) `suchThat` (> 0)
 
 prime :: Integer -> Bool
 prime n = n > 1 && all (\ x -> rem n x /= 0) xs
