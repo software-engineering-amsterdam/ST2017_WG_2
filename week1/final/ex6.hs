@@ -1,5 +1,5 @@
 -- Question: What is the smallest counterexample?
--- Answer: 
+-- Answer:
 -- in the serie: [2,3,5,7,11,13]
 -- the sum is: 30031
 -- which is not a prime number
@@ -17,21 +17,17 @@ prime n = n > 1 && all (\ x -> rem n x /= 0) xs
 primes :: [Integer]
 primes = 2 : filter prime [3..]
 
-nextPrime :: Integer -> Integer
-nextPrime n
-    | prime n = n
-    | otherwise = nextPrime (n + 1)
-
 isProductPlusOnePrime :: [Integer] -> Bool
 isProductPlusOnePrime p = prime ((foldl (*) 1 p) + 1)
 
-primeConjecture :: [Integer] -> [Integer]
-primeConjecture p
-    | isProductPlusOnePrime p = primeConjecture (p ++ [nextPrime ((last p) + 1)])
+primeConjecture :: Int -> [Integer]
+primeConjecture n
+    | isProductPlusOnePrime p = primeConjecture (n + 1)
     | otherwise = p
+    where p = take n primes
 
-main = do 
-    let match = primeConjecture [2]
+main = do
+    let match = primeConjecture 1
     let productPlusOne = (foldl (*) 1 match) + 1
     print (match)
     print (productPlusOne)
