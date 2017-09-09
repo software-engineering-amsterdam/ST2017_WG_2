@@ -23,6 +23,7 @@ dListToIList :: [[Integer]] -> [Integer]
 dListToIList [] = []
 dListToIList (h:t) = [fromDigits h] ++ (dListToIList t)
 
+-- Concat list of integers to string
 concatInts :: [Integer] -> String
 concatInts [] = ""
 concatInts (h:t) = show h ++ concatInts t
