@@ -1,13 +1,16 @@
 -- Time taken: 3 hours
--- Sources: 
+-- Sources:
 -- VISA specification source: http://www.regular-expressions.info/creditcard.html
 -- https://stackoverflow.com/questions/1918486/convert-list-of-integers-into-one-int-like-concat-in-haskell
 -- Luhn algorithm linked in lecture: https://en.wikipedia.org/wiki/Luhn_algorithm
+-- To test, we used credit card numbers known to be correct/incorrect.
+-- We chose not to use an own generator of credit card numbers, because that generator should
+-- be tested as well, by our Luhn validator which is not tested yet, and so forth...
 -- Generate random credit card numbers: http://www.getcreditcardnumbers.com/
 
 -- Import libraries
 import Test.QuickCheck
-import Data.Char 
+import Data.Char
 import Data.List
 
 -- The main luhn function that will be called, converts number into digit array and calls helper function
@@ -40,25 +43,25 @@ intArrayToInt [] pos = 0
 intArrayToInt n pos = (10^pos * head(n)) + (intArrayToInt (tail n) (pos+1))
 
 -----------------------
--- VISA CHECKS 
+-- VISA CHECKS
 isAmericanExpress, isMaster, isVisa :: Integer -> Bool
 isAmericanExpress n = isAmericanExpressHelper (getDigits (show n)) && luhn(n)
 isMaster n = isMasterHelper (getDigits (show n)) && luhn(n)
 isVisa n = isVisaHelper (getDigits (show n)) && luhn(n)
 isAmericanExpressHelper n = length(n) == 15 && head(n) == 3 && (head(tail(n)) == 4 || head(tail(n)) == 7)
-isMasterHelper n = 
-    length(n) == 16 && 
+isMasterHelper n =
+    length(n) == 16 &&
     (
-        (intArrayToInt (reverse (take 2 n)) 0) == 51 || 
-        (intArrayToInt (reverse (take 2 n)) 0) == 55 || 
+        (intArrayToInt (reverse (take 2 n)) 0) == 51 ||
+        (intArrayToInt (reverse (take 2 n)) 0) == 55 ||
         (
-            (intArrayToInt (reverse (take 4 n)) 0) >= 2221 && 
+            (intArrayToInt (reverse (take 4 n)) 0) >= 2221 &&
             (intArrayToInt (reverse (take 4 n)) 0) <= 2720
         )
     )
 isVisaHelper n = (length(n) == 16 || length(n) == 13) && head(n) == 4
 
-        
+
 -- Test to check if a cardnumber belongs to any of the 3 cards as expected
 -- input: <cardnumber> <isVisa> <isMaster> <isAmericanExpress>, output: true if the algorithm returns the same values as the input booleans, false otherwise
 creditCardTest :: Integer -> Bool -> Bool -> Bool -> Bool
