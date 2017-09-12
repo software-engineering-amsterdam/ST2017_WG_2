@@ -1,3 +1,5 @@
+-- This took ~20 minutes
+
 import Data.List
 import Data.Char
 import System.Random
