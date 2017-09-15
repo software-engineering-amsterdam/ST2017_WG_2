@@ -33,6 +33,4 @@ propOwnInverse :: [Char] -> Bool
 propOwnInverse x = x == rot13 (rot13 x)
 
 main = do
-    -- Need a way to only generate readable strings
-    -- quickCheck propOwnInverse
-    quickCheck (\s -> propOwnInverse s)
+    quickCheck propOwnInverse
