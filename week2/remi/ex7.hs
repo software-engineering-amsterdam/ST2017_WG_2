@@ -47,7 +47,6 @@ letterToInt x
 stringToInt :: String -> Integer
 stringToInt x = read (concat (map letterToInt x)) :: Integer
 
--- TODO: LENGTH
 iban :: String -> Bool
 iban x = genericLength i == l && c `mod` 97 == 1
     where i = removeSpaces x
