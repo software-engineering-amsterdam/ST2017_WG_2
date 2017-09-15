@@ -1,5 +1,12 @@
 -- Took about 2.5 hours
 
+-- Tested using a list of IBAN numbers known to be correct and incorrect.
+-- Examples of wrong numbers created by changing letters or length of correct numbers to
+-- incorrect format. Also by changing one of the numbers, which causes
+-- the checksum to be wrong.
+
+-- Using the Hoare test function, these lists of IBAN numbers can easily be tested.
+
 module Lab2 where
 
 import Data.List
@@ -113,9 +120,6 @@ correctIban = ["AL47 2121 1009 0000 0002 3569 8741",
             "TR33 0006 1005 1978 6457 8413 26",
             "AE07 0331 2345 6789 0123 456"]
 
--- Examples of wrong numbers created by changing letters or length to
--- incorrect format. Also by changing one of the numbers, which causes
--- the checksum to be wrong.
 wrongIban :: [String]
 wrongIban = ["ALB7 2121 1009 0000 0002 3569 8742",
             "AD12 0001 2030 2003 5910 0101",
@@ -134,9 +138,14 @@ wrongIban = ["ALB7 2121 1009 0000 0002 3569 8742",
             "TN59 1000 6035 1835 9848 8831",
             "TR33 0006 1005 1978 6457 8414 26"]
 
+-- Hoare test function
+hoareTest :: (a -> Bool) -> (a -> Bool) -> (Bool -> Bool) -> [a] -> Bool
+hoareTest precondition f postcondition =
+    all (\x -> precondition x --> postcondition (f x))
+
 main = do
     -- Test with correct IBANs
-    quickCheck (\n -> n >= 0 && n < length correctIban ==> iban (correctIban!!n))
+    print (hoareTest (\_ -> True) iban (\x -> x) correctIban)
 
     -- Test with incorrect IBANs
-    quickCheck (\n -> n >= 0 && n < length wrongIban ==> not (iban (wrongIban!!n)))
+    print (hoareTest (\_ -> True) iban (\x -> not x) wrongIban)
