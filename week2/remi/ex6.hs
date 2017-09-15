@@ -1,5 +1,14 @@
 -- Rot13 took about 30 minutes, not tested yet
 
+-- Specification:
+-- Uppercase characters are changed into uppercase characters 13 places ahead
+-- Lowercase characters are changed into lowercase characters 13 places ahead
+-- Other characters are not changed
+
+-- As we shift 13 characters, applying this twice should result into the original string.
+-- Therefore, we can test the following property:
+-- rot13 (rot13 x) = x
+
 module Lab2 where
 
 import Data.List
@@ -12,17 +21,18 @@ import Test.QuickCheck
 -- 65 = A, 97 = a
 move13 :: Char -> Char
 move13 x
-    | isUpper x = chr ((ord x - 65 + 13) `mod` 26 + 65)
-    | isLower x = chr ((ord x - 97 + 13) `mod` 26 + 97)
+    | x `elem` ['A'..'Z'] = chr ((ord x - 65 + 13) `mod` 26 + 65)
+    | x `elem` ['a'..'z'] = chr ((ord x - 97 + 13) `mod` 26 + 97)
     | otherwise = x
 
 rot13 :: String -> String
 rot13 x = map move13 x
 
 -- Properties
-propOwnInverse :: String -> Bool
+propOwnInverse :: [Char] -> Bool
 propOwnInverse x = x == rot13 (rot13 x)
 
 main = do
     -- Need a way to only generate readable strings
-    quickCheck propOwnInverse
+    -- quickCheck propOwnInverse
+    quickCheck (\s -> propOwnInverse s)
