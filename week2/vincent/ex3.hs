@@ -1,6 +1,6 @@
 -- ID: 11408227
 -- Name: Vincent Jong
--- Time: 16:05 - 16:20, 10:40 -  (Programming), (Answering)
+-- Time: 16:05 - 16:20, 10:40 - 11:05 (Programming), (Answering)
 
 import Data.List
 import Data.Function
@@ -52,21 +52,9 @@ strengthPropEvenOrGrThree = strengthProps propEvenOrGrThree propEven + strengthP
 strengthPropEvenAndGrThreeOrEven :: Int
 strengthPropEvenAndGrThreeOrEven = strengthProps propEvenAndGrThreeOrEven propEven + strengthProps propEvenAndGrThreeOrEven propEvenAndGrThree + strengthProps propEvenAndGrThreeOrEven propEvenOrGrThree
 
-propStrengthList = [(strengthPropEven, 0), (strengthPropEvenAndGrThree, 1), (strengthPropEvenOrGrThree, 2), (strengthPropEvenAndGrThreeOrEven, 3)]
+propStrengthList = [(strengthPropEven, "Even"), (strengthPropEvenAndGrThree, "EvenAndGr3"), (strengthPropEvenOrGrThree, "EvenOrGr3"), (strengthPropEvenAndGrThreeOrEven, "EvenAndGr3OrEven")]
 
-propStrengthListSorted :: [(Int, Int)]
+propStrengthListSorted :: [(Int, String)]
 propStrengthListSorted = sortBy (flip compare `on` fst) propStrengthList
 
-main = do
-    print $ stronger range propEven propEvenAndGrThree
-    print $ stronger range propEven propEvenOrGrThree
-    print $ stronger range propEven propEvenAndGrThreeOrEven
-    print $ stronger range propEvenAndGrThree propEven
-    print $ stronger range propEvenAndGrThree propEvenOrGrThree
-    print $ stronger range propEvenAndGrThree propEvenAndGrThreeOrEven
-    print $ stronger range propEvenOrGrThree propEven
-    print $ stronger range propEvenOrGrThree propEvenAndGrThree
-    print $ stronger range propEvenOrGrThree propEvenAndGrThreeOrEven
-    print $ stronger range propEvenAndGrThreeOrEven propEven
-    print $ stronger range propEvenAndGrThreeOrEven propEvenOrGrThree
-    print $ stronger range propEvenAndGrThreeOrEven propEvenAndGrThree
+main = print propStrengthListSorted
