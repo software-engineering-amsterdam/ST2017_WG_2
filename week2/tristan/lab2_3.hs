@@ -1,15 +1,17 @@
--- Result of ordering is ["ex3b","ex3c","ex3d","even","ex3a"]
+-- Result of ordering is ["ex3a","ex3c","ex3d","even","ex3b"]
 -- 
 -- This took ~50 minutes
+
+module Lab2_3 (NamedProperty (NamedProperty, name, prop), sortStrength) where 
 
 import Data.List
 import Data.Char
 import System.Random
 import Test.QuickCheck
 
-data WrappedProperty a = WrappedProperty {name :: String, prop :: (a -> Bool)}
-instance Show (WrappedProperty a) where
-   show (WrappedProperty name _) = show name
+data NamedProperty a = NamedProperty {name :: String, prop :: (a -> Bool)}
+instance Show (NamedProperty a) where
+   show (NamedProperty name _) = show name
 
 infix 1 --> 
 (-->) :: Bool -> Bool -> Bool
@@ -33,7 +35,7 @@ ex3c x = (even x && x > 3) || even x
 ex3d :: Int -> Bool 
 ex3d x = (even x && x > 3) || even x
 
-strongest :: [a] -> WrappedProperty a -> WrappedProperty a -> Ordering
+strongest :: [a] -> NamedProperty a -> NamedProperty a -> Ordering
 strongest input (pre) (post)
     | prepost && postpre = EQ
     | prepost = GT
@@ -42,17 +44,17 @@ strongest input (pre) (post)
     where prepost = stronger input (prop pre) (prop post)
           postpre = stronger input (prop post) (prop pre)
 
-sortStrength :: [a] -> [WrappedProperty a] -> [WrappedProperty a]
+sortStrength :: [a] -> [NamedProperty a] -> [NamedProperty a]
 sortStrength _ [] = []
-sortStrength input properties = sortBy (strongest input) properties
+sortStrength input properties = sortBy (flip (strongest input)) properties
 
 main = do
     let range = [(-10)..10]
     
-    let properties = [ WrappedProperty {name = "ex3a", prop = ex3a}
-                     , WrappedProperty {name = "ex3b", prop = ex3b}
-                     , WrappedProperty {name = "ex3c", prop = ex3c}
-                     , WrappedProperty {name = "ex3d", prop = ex3d}
-                     , WrappedProperty {name = "even", prop = even} ]
+    let properties = [ NamedProperty {name = "ex3a", prop = ex3a}
+                     , NamedProperty {name = "ex3b", prop = ex3b}
+                     , NamedProperty {name = "ex3c", prop = ex3c}
+                     , NamedProperty {name = "ex3d", prop = ex3d}
+                     , NamedProperty {name = "even", prop = even} ]
 
     print (sortStrength range properties)
