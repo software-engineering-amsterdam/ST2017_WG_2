@@ -40,7 +40,7 @@ countryLength x
         where country = filter (\y -> fst y == x) countryLengths
 
 removeSpaces :: String -> String
-removeSpaces x = filter (\y -> y /= ' ') x
+removeSpaces x = filter (\y -> not (isSpace y)) x
 
 rearrangeIban :: String -> String
 rearrangeIban x = drop 4 x ++ take 4 x
