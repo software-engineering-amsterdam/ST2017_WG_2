@@ -1,9 +1,11 @@
 -- ID: 11408227
 -- Name: Vincent Jong
--- Time: 21:20 - 21:50 (Programming), (Answering)
+-- Time: 21:20 - 21:50, 20:50 - 21:20 (Programming), (Answering)
 
 -- Specification:
--- Letters that are moved 13 spots ahead should be the same letter when moved another 13 spots ahead
+-- Letters that are moved 13 spots ahead should be the same letter when moved another 13 spots ahead.
+-- That means that performing rot13 twice should yield the same result. Anything other than letters
+-- should be ignored.
 
 import Data.List
 import Data.Char
@@ -14,10 +16,6 @@ getNewChar x
     | elem x ['a'..'z'] = toEnum $ (fromEnum x - fromEnum 'a' + 13) `mod` 26 + fromEnum 'a'
     | elem x ['A'..'Z'] = toEnum $ (fromEnum x - fromEnum 'A' + 13) `mod` 26 + fromEnum 'A'
     | otherwise = x
-    --let lowercase = isLower x
-    --let newIndex = (fromEnum x) + 13
-    --let newIndexFixed = if lowercase then if newIndex > 122 then (newIndex - 26) else newIndex else if newIndex > 92 then (newIndex - 26) else newIndex 
-    --toEnum newIndexFixed :: Char
 
 rot13 :: String -> String
 rot13 [] = []
