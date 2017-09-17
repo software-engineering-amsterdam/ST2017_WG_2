@@ -1,5 +1,5 @@
 -- Started at 15:10, finished triangle function at 15:25
--- Finished testing/explaining my method of checking at 16:00
+-- Finished testing/explaining my method of testing at 16:00
 
 -- NoTriangle, Equilateral and Isosceles can be tested using quickCheck.
 -- Their preconditions are relatively simple: NoTriangle needs at least one of three

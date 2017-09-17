@@ -1,4 +1,4 @@
--- Rot13 took about 30 minutes, not tested yet
+-- Took about 45 minutes
 
 -- Specification:
 -- Uppercase characters are changed into uppercase characters 13 places ahead
