@@ -29,7 +29,7 @@ rot13 :: String -> String
 rot13 x = map getNewChar x
 
 -- Properties
-propOwnInverse :: [Char] -> Bool
+propOwnInverse :: String -> Bool
 propOwnInverse x = x == rot13 (rot13 x)
 
 propNonLettersIsSame :: String -> Bool
