@@ -32,10 +32,11 @@ rot13 x = map getNewChar x
 propOwnInverse :: [Char] -> Bool
 propOwnInverse x = x == rot13 (rot13 x)
 
-propNonLettersIsSame :: Char -> Bool
-propNonLettersIsSame c
-    | not (elem c ['A'..'z']) = getNewChar c == c
-    | otherwise = True
+propNonLettersIsSame :: String -> Bool
+propNonLettersIsSame c = o == os
+    where cs = rot13 c
+          o = filter (\x -> not (elem x ['A'..'z'])) c
+          os = filter (\x -> not (elem x ['A'..'z'])) cs
 
 main = do
     quickCheck propOwnInverse
