@@ -7,6 +7,7 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
+import Ex1
 import Ex3
 
 instance Arbitrary Form where
@@ -23,9 +24,4 @@ formGenerator depth = oneof [ liftM  Prop (choose (0, 10))
                     where nextDepth = depth - 1
 
 main = do
-    forms <- generate (formGenerator 10)
-    print (forms)
-    print ""
-    print ""
-    print ""
-    print (cnf forms)
+    quickCheck (forAll (formGenerator 10) (\ form -> equiv form (cnf form)))

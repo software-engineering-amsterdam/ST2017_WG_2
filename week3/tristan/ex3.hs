@@ -5,12 +5,7 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
-
-contradiction :: Form -> Bool
-contradiction form = all (\ v -> not (evl v form)) (allVals form)
-
-tautology :: Form -> Bool
-tautology form = all (\ v -> evl v form) (allVals form)
+import Ex1
 
 cnf :: Form -> Form
 cnf forms

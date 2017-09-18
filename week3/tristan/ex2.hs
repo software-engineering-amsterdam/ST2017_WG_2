@@ -1,4 +1,4 @@
-module Lab3 where
+module Ex2 where
 
 import Control.Monad
 import Data.List
