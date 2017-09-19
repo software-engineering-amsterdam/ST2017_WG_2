@@ -25,8 +25,8 @@ cnf (Cnj [Prop p])        = Prop p
 cnf (Dsj [Prop p])        = Prop p
 cnf (Cnj forms)           = Cnj (map cnf (nub forms))
 cnf (Dsj forms)           = dsjTransform (Dsj (map cnf (nub forms)))
-cnf (Impl left right)     = Dsj [Neg (cnf left), cnf right]
-cnf (Equiv left right)    = Dsj [Cnj [left', right'], Cnj [Neg left', Neg right']]
+cnf (Impl left right)     = cnf (Dsj [Neg (cnf left), cnf right])
+cnf (Equiv left right)    = cnf (Dsj [Cnj [left', right'], Cnj [Neg left', Neg right']])
                             where left'  = cnf left
                                   right' = cnf right
 
@@ -38,12 +38,12 @@ dsjTransform (Dsj forms) = case conjunction of
         Cnj (map (\cnjElem -> Dsj (cnjElem:other)) conjunction)
     Nothing -> Dsj forms
     where conjunction = find (isCnj) forms
+dsjTransform x = x
 
 isCnj :: Form -> Bool
 isCnj (Cnj _) = True
 isCnj _ = False
 
 main = do
-    let form = head (parse "+(1 +(2 -2) 5)")
-    let trans = cnf form
-    print (trans)
+    let form = head (parse "(1 ==> -+(2 -3))")
+    print (cnf form)
