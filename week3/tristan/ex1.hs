@@ -1,6 +1,6 @@
 -- This took ~30 minutes
 
-module Lab3 where
+module Ex1 (contradiction, tautology, entails, equiv) where
 
 import Data.List
 import System.Random

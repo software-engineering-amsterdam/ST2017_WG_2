@@ -7,6 +7,7 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
+import Ex1
 import Ex3
 
 instance Arbitrary Form where
@@ -22,10 +23,17 @@ formGenerator depth = oneof [ liftM  Prop (choose (0, 10))
                             , liftM2 Equiv (formGenerator nextDepth) (formGenerator nextDepth) ]
                     where nextDepth = depth - 1
 
+prop_equiv, prop_names, prop_all :: Form -> Bool
+prop_equiv form = equiv form (cnf form)
+prop_names form = do
+    let names1 = propNames form
+    let names2 = propNames (cnf form)
+    all (\ x -> elem x names1) names2
+prop_all form = prop_equiv form && prop_names form
+
 main = do
-    forms <- generate (formGenerator 10)
-    print (forms)
-    print ""
-    print ""
-    print ""
-    print (cnf forms)
+    -- form <- generate (formGenerator 8)
+    -- putStrLn (show form)
+    -- putStrLn ("\n<===Vs===>\n")
+    -- putStrLn (show (cnf form))
+    quickCheck (forAll (formGenerator 6) prop_all)
