@@ -11,10 +11,21 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
+import Ex4
+
+-- Test using the form generator from exercise 4
+-- First, the form is turned into the string representation
+-- Next, this string representation is parsed and then again
+-- turned into the string representation. This function
+-- checks if those are equal.
+testGenerated :: Form -> Bool
+testGenerated x = formString == showLst (parse formString)
+    where formString = showLst [x]
 
 -- Test by parsing, then comparing the output to the expected output from the list
-parseTest :: [(String, Form)] -> Bool
-parseTest = all (\(x, y) -> parse x == [y])
+-- This way, also cases with too many closing brackets are tested
+testExamples :: [(String, Form)] -> Bool
+testExamples = all (\(x, y) -> parse x == [y])
 
 -- List of test cases and expected parsing output
 testList :: [(String, Form)]
@@ -35,4 +46,6 @@ testList =  [
                 ("(-3 <=> +(1 2))", Equiv (Neg r) (Dsj [p, q]))
             ]
 
-main = parseTest testList
+main = do
+    verboseCheck testGenerated
+    print (testExamples testList)

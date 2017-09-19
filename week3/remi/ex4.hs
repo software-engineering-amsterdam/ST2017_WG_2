@@ -1,6 +1,6 @@
 -- About 1 hour
 
-module Lab3 where
+module Ex4 where
 
 import Data.List
 import System.Random
@@ -27,7 +27,9 @@ arbForm n = oneof [
                     liftM2 Equiv (arbForm (n `div` 2)) (arbForm (n `div` 2))
                 ]
 
-testCNF :: Form -> Bool
-testCNF x = equiv (head (toCNF [x])) x
+-- Test if cnf is equivalent to original form
+propEquiv :: Form -> Bool
+propEquiv x = equiv (cnf x) x
 
-main = verboseCheck testCNF
+main4 :: IO ()
+main4 = verboseCheck propEquiv
