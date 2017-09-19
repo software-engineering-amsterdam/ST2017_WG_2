@@ -6,34 +6,24 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
-
--- From exercise 1
-tautology :: Form -> Bool
-tautology f = all (\ v -> evl v f) (allVals f)
-
-contradiction :: Form -> Bool
-contradiction f = not (satisfiable f)
-
-entails :: Form -> Form -> Bool
-entails f g = tautology (Impl f g)
-
-equiv :: Form -> Form -> Bool
-equiv f g = entails f g && entails g f
+import Ex1
 
 -- First transform form into arrow free form
 -- Next, transform arrow free form into negation normal form
 -- Finally, simplify
-toCNF :: [Form] -> [Form]
-toCNF f = map distribute sf
-    where af = map arrowfree f
-          nf = map nnf af
-          sf = map simplify nf
+cnf :: Form -> Form
+cnf f = simplify sf
+    where af = arrowfree f
+          nf = nnf af
+          sf = distribute nf
 
 -- Distribute ORs inwards over ANDs
 distribute :: Form -> Form
 distribute (Prop x) = Prop x
-distribute (Dsj [x, Cnj[y, z]]) = Cnj [Dsj [x, y], Dsj [x, z]]
-distribute (Dsj [Cnj[y, z], x]) = Cnj [Dsj [y, x], Dsj [z, x]]
+distribute (Dsj [x, Cnj[y, z]]) = Cnj [distribute (Dsj [x, y]), distribute (Dsj [x, z])]
+distribute (Dsj [Cnj[y, z], x]) = Cnj [distribute (Dsj [y, x]), distribute (Dsj [z, x])]
+distribute (Dsj fs) = Dsj (map distribute fs)
+distribute (Cnj fs) = Cnj (map distribute fs)
 distribute x = x
 
 -- Simplify tautology to +(true, false)
@@ -48,16 +38,32 @@ simplify fs
    where propName = head (propNames fs)
 simplify (Cnj [x, y])
     | equiv x y = simplify x
+    | tautology x = simplify y
+    | tautology y = simplify x
+    | contradiction x = simplify x
+    | contradiction y = simplify y
     | otherwise = Cnj [simplify x, simplify y]
 simplify (Dsj [x, y])
     | equiv x y = simplify x
+    | tautology x = simplify y
+    | tautology y = simplify x
+    | contradiction x = simplify y
+    | contradiction y = simplify x
     | otherwise = Dsj [simplify x, simplify y]
+simplify (Dsj fs) = Dsj (map simplify fs)
+simplify (Cnj fs) = Cnj (map simplify fs)
 simplify x = x
 
--- main = do
---     -- print (toCNF (parse "-+(1 2)"))
---     -- print (toCNF (parse "+(1 *(1 2))"))
---     print (toCNF (parse "((1 ==> 2) <=> (-2 ==> -1))"))
---     print (toCNF (parse "(1 ==> -+(2 -3))"))
---     print (toCNF (parse "+(-(1 ==> 2) (3 ==> 1))"))
---     print (toCNF (parse "+(*(1 2) 3)"))
+main3 :: IO ()
+main3 = do
+    print (cnf (head (parse "-+(1 2)")))
+    print (cnf (head (parse "+(1 *(1 2))")))
+    print (cnf (head (parse "((1 ==> 2) <=> (-2 ==> -1))")))
+    print (cnf (head (parse "(1 ==> -+(2 -3))")))
+    print (cnf (head (parse "+(-(1 ==> 2) (3 ==> 1))")))
+    print (cnf (head (parse "+(*(1 2) 3)")))
+    print (cnf (head (parse "(1<=>-5)")))
+
+    print (cnf (head (parse "*(8 4 (1<=>-5))")))
+    print (cnf (head (parse "+(1 2 3 4)")))
+
