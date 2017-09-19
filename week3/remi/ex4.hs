@@ -7,6 +7,7 @@ import System.Random
 import Control.Monad
 import Test.QuickCheck
 import Lecture3
+import Ex1
 import Ex3
 
 
