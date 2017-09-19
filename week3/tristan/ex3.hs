@@ -1,3 +1,5 @@
+-- This took ~4 hours
+
 module Ex3 (cnf) where
 
 import Debug.Trace
@@ -42,6 +44,6 @@ isCnj (Cnj _) = True
 isCnj _ = False
 
 main = do
-    let form = head (parse "+(1 +(2 *(3 4)) 5)")
+    let form = head (parse "+(1 +(2 -2) 5)")
     let trans = cnf form
     print (trans)
