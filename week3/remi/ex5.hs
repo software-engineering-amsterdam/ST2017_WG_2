@@ -11,15 +11,11 @@ import Ex3
 type Clause  = [Int]
 type Clauses = [Clause]
 
-generateClause :: Form -> Clause
-generateClause (Prop x) = [x]
-generateClause (Neg (Prop x)) = [-x]
-generateClause (Dsj [x, y]) = generateClause x ++ generateClause y
-generateClause x = []
-
 cnf2cls :: Form -> Clauses
-cnf2cls (Cnj [x, y]) = cnf2cls x ++ cnf2cls y
-cnf2cls x = [generateClause x]
+cnf2cls (Prop x) = [[x]]
+cnf2cls (Neg x) = map (\y -> map (\z -> -z) y) (cnf2cls x)
+cnf2cls (Dsj x) = [concat (concat (map cnf2cls x))]
+cnf2cls (Cnj x) = concat (map cnf2cls x)
 
 any2cls :: Form -> Clauses
 any2cls f = cnf2cls (cnf f)
