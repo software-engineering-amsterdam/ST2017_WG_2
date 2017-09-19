@@ -23,5 +23,13 @@ formGenerator depth = oneof [ liftM  Prop (choose (0, 10))
                             , liftM2 Equiv (formGenerator nextDepth) (formGenerator nextDepth) ]
                     where nextDepth = depth - 1
 
+prop_equiv, prop_names, prop_all :: Form -> Bool
+prop_equiv form = equiv form (cnf form)
+prop_names form = do
+    let names1 = propNames form
+    let names2 = propNames (cnf form)
+    all (\ x -> elem x names1) names2
+prop_all form = prop_equiv form && prop_names form
+
 main = do
-    quickCheck (forAll (formGenerator 10) (\ form -> equiv form (cnf form)))
+    quickCheck (forAll (formGenerator 6) prop_all)
