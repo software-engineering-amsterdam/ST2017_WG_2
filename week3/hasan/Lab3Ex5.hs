@@ -20,6 +20,4 @@ mainLab3Ex5 = do
     let form = head (parse "*(8 4 (1<=>-5))")
     let valuations = [(8, True), (4, True), (5, False), (1, True)]
     let clauses = [[8],[4],[-5,-1],[1,5]]
-    --let clauses = [[8], [4], [-5]]
-    --print (cnf2cls (cnf form))
     print (evl2 valuations clauses)
