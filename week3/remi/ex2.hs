@@ -47,5 +47,5 @@ testList =  [
             ]
 
 main = do
-    verboseCheck testGenerated
+    quickCheck testGenerated
     print (testExamples testList)

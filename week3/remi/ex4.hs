@@ -32,5 +32,11 @@ arbForm n = oneof [
 propEquiv :: Form -> Bool
 propEquiv x = equiv (cnf x) x
 
+-- Check if property names of the CNF are subset of the property names of the original form
+checkPropNames :: Form -> Bool
+checkPropNames f = all (\x -> elem x originalPropNames) (propNames (cnf f)) where originalPropNames = propNames f
+
 main4 :: IO ()
-main4 = verboseCheck propEquiv
+main4 = do
+    quickCheck propEquiv
+    quickCheck checkPropNames

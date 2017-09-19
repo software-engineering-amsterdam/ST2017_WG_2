@@ -20,6 +20,8 @@ cnf f = simplify sf
 -- Distribute ORs inwards over ANDs
 distribute :: Form -> Form
 distribute (Prop x) = Prop x
+distribute (Dsj (a:b:c))
+    | c /= [] = distribute (Dsj [distribute (Dsj [a, b]), distribute (Dsj c)])
 distribute (Dsj [x, Cnj[y, z]]) = Cnj [distribute (Dsj [x, y]), distribute (Dsj [x, z])]
 distribute (Dsj [Cnj[y, z], x]) = Cnj [distribute (Dsj [y, x]), distribute (Dsj [z, x])]
 distribute (Dsj fs) = Dsj (map distribute fs)
@@ -66,4 +68,6 @@ main3 = do
 
     print (cnf (head (parse "*(8 4 (1<=>-5))")))
     print (cnf (head (parse "+(1 2 3 4)")))
+
+    print (cnf (head (parse "+(*(1 -2) *(3 4) *(3 -4))")))
 
