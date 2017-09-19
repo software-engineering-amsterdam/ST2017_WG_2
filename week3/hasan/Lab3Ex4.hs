@@ -9,7 +9,7 @@ import Lab3Ex3
 import Control.Monad
 
 arbitraryForm :: Gen Form
-arbitraryForm  = do
+arbitraryForm = do
     depth <- choose (0, 8)
     createForm depth
 
