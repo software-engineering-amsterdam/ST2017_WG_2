@@ -32,8 +32,8 @@ prop_names form = do
 prop_all form = prop_equiv form && prop_names form
 
 main = do
-    -- form <- generate (formGenerator 8)
-    -- putStrLn (show form)
-    -- putStrLn ("\n<===Vs===>\n")
-    -- putStrLn (show (cnf form))
-    quickCheck (forAll (formGenerator 6) prop_all)
+    form <- generate (formGenerator 8)
+    putStrLn (show form)
+    putStrLn ("\n<===Vs===>\n")
+    putStrLn (show (cnf form))
+    -- quickCheck (forAll (formGenerator 6) prop_all)

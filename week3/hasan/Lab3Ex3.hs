@@ -15,26 +15,25 @@ import Lab3Ex1
 -- We don't have to match impl and equiv because we use this function after 'arrowfree'
 cnfHelper :: Form -> Form
 cnfHelper forms
-    | tautology forms     		= Dsj [Prop propName, Neg (Prop propName)] 
-    | contradiction forms 		= Cnj [Prop propName, Neg (Prop propName)]
-									where propName = head (propNames forms)
-cnfHelper (Neg form)           	= Neg (cnf form)
+    | tautology forms             = Dsj [Prop propName, Neg (Prop propName)] 
+    | contradiction forms         = Cnj [Prop propName, Neg (Prop propName)]
+                                    where propName = head (propNames forms)
+cnfHelper (Neg form)               = Neg (cnf form)
 cnfHelper (Cnj [Prop p])        = Prop p
 cnfHelper (Dsj [Prop p])        = Prop p
-cnfHelper (Dsj forms)
-cnfHelper (Cnj forms)        	= Cnj (map cnf (nub forms))
-cnfHelper (Dsj forms)        	= Dsj (map cnf (nub forms))
+cnfHelper (Cnj forms)            = Cnj (map cnf (nub forms))
+cnfHelper (Dsj forms)            = Dsj (map cnf (nub forms))
 cnfHelper forms = forms
 
 cnf :: Form -> Form
 cnf f = cnfHelper (nnf (arrowfree f))
 
 mainLab3Ex3 = do
-	let form_a = Equiv (Impl p q) (Impl (Neg q) (Neg p))
-	let form_b = head (parse "+(*(1 2) 3)")
-	--let form_b = head (parse "+(*(1 2 3 4 5) 6 7 8)")
-	putStrLn "\nForm: "
-	print (form_b)
-	
-	putStrLn "\nCNF conversion:"
-	print (cnf form_b)
+    let form_a = Equiv (Impl p q) (Impl (Neg q) (Neg p))
+    let form_b = head (parse "+(*(1 2) 3)")
+    --let form_b = head (parse "+(*(1 2 3 4 5) 6 7 8)")
+    putStrLn "\nForm: "
+    print (form_b)
+    
+    putStrLn "\nCNF conversion:"
+    print (cnf form_b)
