@@ -68,14 +68,14 @@ simplify x = x
 
 main3 :: IO ()
 main3 = do
-    -- print (cnf (head (parse "-+(1 2)")))
-    -- print (cnf (head (parse "+(1 *(1 2))")))
-    -- print (cnf (head (parse "((1 ==> 2) <=> (-2 ==> -1))")))
-    -- print (cnf (head (parse "(1 ==> -+(2 -3))")))
-    -- print (cnf (head (parse "+(-(1 ==> 2) (3 ==> 1))")))
-    -- print (cnf (head (parse "+(*(1 2) 3)")))
-    -- print (cnf (head (parse "(1<=>-5)")))
+    print (cnf (head (parse "-+(1 2)")))
+    print (cnf (head (parse "+(1 *(1 2))")))
+    print (cnf (head (parse "((1 ==> 2) <=> (-2 ==> -1))")))
+    print (cnf (head (parse "(1 ==> -+(2 -3))")))
+    print (cnf (head (parse "+(-(1 ==> 2) (3 ==> 1))")))
+    print (cnf (head (parse "+(*(1 2) 3)")))
+    print (cnf (head (parse "(1<=>-5)")))
 
     print (cnf (head (parse "*(8 4 (1<=>-5))")))
-    -- print (cnf (head (parse "+(1 2 3 4)")))
+    print (cnf (head (parse "+(1 2 3 4)")))
 
