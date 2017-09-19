@@ -1,5 +1,6 @@
 module Ex5 where
 
+import Debug.Trace
 import Data.List
 import System.Random
 import Test.QuickCheck
@@ -24,9 +25,9 @@ evalClause valuations clause = any (\prop -> evalProp valuations prop) clause
 
 evalProp :: Valuation -> Int -> Bool
 evalProp valuations prop = case value of
-    Just (_, state) -> validateProp prop state
-    Nothing         -> False
-    where value = find (\(name, state) -> name == prop) valuations
+    Just (name, state) -> validateProp prop state
+    Nothing            -> False
+    where value = find (\(name, state) -> name == (abs prop)) valuations
 
 validateProp :: Int -> Bool -> Bool
 validateProp p v
@@ -34,7 +35,7 @@ validateProp p v
     | otherwise = not v
 
 main = do
-   let valuations = [(1, True), (2, False)]
-   let clauses = [[1], [2, 1]]
+    let valuations = [(8, True), (4, True), (5, False), (1, True)]
+    let clauses = [[8],[4],[-5,-1],[1,5]]
 
-   print (evalClauses valuations clauses)
+    print (evalClauses valuations clauses)
