@@ -6,19 +6,7 @@ import Data.List
 import System.Random
 import Test.QuickCheck
 import Lecture3
-
--- From exercise 1
-tautology :: Form -> Bool
-tautology f = all (\ v -> evl v f) (allVals f)
-
-contradiction :: Form -> Bool
-contradiction f = not (satisfiable f)
-
-entails :: Form -> Form -> Bool
-entails f g = tautology (Impl f g)
-
-equiv :: Form -> Form -> Bool
-equiv f g = entails f g && entails g f
+import Ex1
 
 -- First transform form into arrow free form
 -- Next, transform arrow free form into negation normal form

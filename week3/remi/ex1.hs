@@ -1,7 +1,7 @@
 -- About 30 minutes
 -- Definitions are checked by using the lab exercises known to be correct
 
-module Lab3 where
+module Ex1 where
 
 import Data.List
 import System.Random
