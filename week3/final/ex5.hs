@@ -35,7 +35,7 @@ evl2 valuations clauses = all (\clause -> any (\clauseVariable -> elem ((abs cla
 -- Clauses back to form, so we can automate testing
 cl2form :: Clause -> Form
 cl2form x
-    | length x == 1 = if (head x) >= 0 then Prop (head x) else Neg (Prop (abs (head x)))
+    | length x == 1 = head (map Prop x)
     | otherwise = Dsj (map Prop x)
 
 cls2form :: Clauses -> Form
