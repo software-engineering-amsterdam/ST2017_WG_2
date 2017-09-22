@@ -2,8 +2,8 @@
 
 -- Test 1 by checking if every clause has at least one variable that is true
 
--- Test 2 by generating clauses and by a function created to turn clauses back into forms
--- the form is turned into clauses and the clauses are turned back into a form
+-- Test 2 by generating clauses and by a function created to turn clauses back into forms.
+-- The form is turned into clauses and the clauses are turned back into a form
 -- and then we check if that form is equal to the original.
 
 module Lab3 where
