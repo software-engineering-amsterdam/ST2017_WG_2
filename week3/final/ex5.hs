@@ -5,8 +5,6 @@
 -- Test 2 by generating clauses and by a function created to turn clauses back into forms
 -- the form is turned into clauses and the clauses are turned back into a form
 -- and then we check if that form is equal to the original.
--- Unfortunately, this shows that for very complex forms our method fails, but
--- we can't seem to find a solution.
 
 module Lab3 where
 
@@ -55,4 +53,4 @@ main5 = do
     let clauses = [[8],[4],[-5,-1],[1,5]]
     print (evl2 valuations clauses)
 
-    verboseCheck testClauses
+    quickCheck testClauses

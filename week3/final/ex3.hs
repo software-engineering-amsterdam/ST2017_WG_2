@@ -33,12 +33,14 @@ cnf f = sf
 
 distribute :: Form -> Form
 distribute (Prop x) = Prop x
-distribute (Dsj (a:b:c))
-    | length c == 1 = distribute (Dsj [distribute (Dsj [a, b]), distribute (head c)])
-    | length c > 1 = distribute (Dsj [distribute (Dsj [a, b]), distribute (Dsj c)])
 distribute (Dsj [x, Cnj[y, z]]) = Cnj [distribute (Dsj [x, y]), distribute (Dsj [x, z])]
 distribute (Dsj [Cnj[y, z], x]) = Cnj [distribute (Dsj [y, x]), distribute (Dsj [z, x])]
-distribute (Dsj fs) = Dsj (map distribute fs)
+-- Only distribute result if the result has changed compared to the original,
+-- otherwise it will be an inifite loop
+distribute (Dsj fs)
+    | mfs /= fs = distribute (Dsj (mfs))
+    | otherwise = Dsj (mfs)
+    where mfs = map distribute fs
 distribute (Cnj fs) = Cnj (map distribute fs)
 distribute x = x
 
@@ -80,6 +82,5 @@ main3 = do
     print (cnf (head (parse "+(-(1 ==> 2) (3 ==> 1))")))
     print (cnf (head (parse "+(*(1 2) 3)")))
     print (cnf (head (parse "(1<=>-3)")))
-
     print (cnf (head (parse "+(-3 (2<=>1))")))
 

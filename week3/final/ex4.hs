@@ -26,11 +26,11 @@ arbForm :: Int -> Gen Form
 arbForm 0 = liftM Prop (choose (1, 3))
 arbForm n = oneof [
                     liftM Prop (choose (1, 3)),
-                    liftM Neg (arbForm (n `div` 2)),
-                    liftM Cnj (vectorOf 2 (arbForm (n `div` 2))),
-                    liftM Dsj (vectorOf 2 (arbForm (n `div` 2))),
-                    liftM2 Impl (arbForm (n `div` 2)) (arbForm (n `div` 2)),
-                    liftM2 Equiv (arbForm (n `div` 2)) (arbForm (n `div` 2))
+                    liftM Neg (arbForm (n `div` 4)),
+                    liftM Cnj (vectorOf 2 (arbForm (n `div` 4))),
+                    liftM Dsj (vectorOf 2 (arbForm (n `div` 4))),
+                    liftM2 Impl (arbForm (n `div` 4)) (arbForm (n `div` 4)),
+                    liftM2 Equiv (arbForm (n `div` 4)) (arbForm (n `div` 4))
                 ]
 
 -- Test if cnf is equivalent to original form
