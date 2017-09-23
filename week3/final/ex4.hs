@@ -1,6 +1,7 @@
 -- About 1 hour
 
--- Testing if the cnf of a form is equivalent to the original form
+-- Testing if the cnf of a form is equivalent to the original form.
+-- Testing if the cnf is not a disjunction containing conjunctions
 -- Also testing if the property names in the cnf are a subset of the
 -- property names in the original form. No new property names should be introduced,
 -- but some could be left out because of simplification.
@@ -41,7 +42,18 @@ propEquiv x = equiv (cnf x) x
 checkPropNames :: Form -> Bool
 checkPropNames f = all (\x -> elem x originalPropNames) (propNames (cnf f)) where originalPropNames = propNames f
 
+checkCnj :: Form -> Bool
+checkCnj (Dsj fs) = not (any propNoDsj fs)
+checkCnj (Cnj fs) = True
+checkCnj fs = False
+
+-- Check if CNF is not a disjunction containing conjunctions
+propNoDsj :: Form -> Bool
+propNoDsj (Dsj fs) = not (any checkCnj fs)
+propNoDsj fs = True
+
 main4 :: IO ()
 main4 = do
     quickCheck propEquiv
+    quickCheck (\x -> propNoDsj (cnf x))
     quickCheck checkPropNames
