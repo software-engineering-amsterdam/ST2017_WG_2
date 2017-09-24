@@ -12,6 +12,10 @@
 -- outcome is equal to the expected outcome. This way,
 -- also cases with too many ending brackets are tested.
 
+-- We chose this solution because our implementations were similar,
+-- but this one also uses the random test generator from exercise 4,
+-- so QuickCheck testing is possible.
+
 module Lab3 where
 
 import Data.List

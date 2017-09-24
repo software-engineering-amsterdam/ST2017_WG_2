@@ -11,6 +11,7 @@ import Ex3
 type Clause  = [Int]
 type Clauses = [Clause]
 
+-- Implementation from Hasan, as mine got stuck in some cases
 cnf2cls :: Form -> Clauses
 cnf2cls (Prop x) = [[x]]
 cnf2cls (Neg x) = map (\y -> map (\z -> -z) y) (cnf2cls x)
@@ -20,7 +21,7 @@ cnf2cls (Cnj x) = concat (map cnf2cls x)
 any2cls :: Form -> Clauses
 any2cls f = cnf2cls (cnf f)
 
--- Check if every clause has at least one variable that is true
+-- Check if every clause has at least one variable that is true (taken from Hasan)
 evl2 :: Valuation -> Clauses -> Bool
 evl2 valuations clauses = all (\clause -> any (\clauseVariable -> elem ((abs clauseVariable), (abs clauseVariable) >= 0) valuations) clause) clauses
 

@@ -1,6 +1,8 @@
 -- About 30 minutes
 -- Definitions are checked using the lab exercises known to be correct
 
+-- We all had a comparable solution, so we chose the one with most examples to check the functions
+
 module Ex1 where
 
 import Data.List

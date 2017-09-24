@@ -6,6 +6,8 @@
 -- The form is turned into clauses and the clauses are turned back into a form
 -- and then we check if that form is equal to the original.
 
+-- We chose this implementation because it is the simplest solution.
+
 module Lab3 where
 
 import Data.List
