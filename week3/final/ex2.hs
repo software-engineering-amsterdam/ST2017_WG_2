@@ -1,9 +1,20 @@
 -- About an hour
 
--- Testing using a list of tuples containing first the expression
+-- Test 1 using the form generator from exercise 4
+-- First, the form is turned into the string representation
+-- Next, this string representation is parsed and then again
+-- turned into the string representation. This function
+-- checks if the result is equal to the original.
+
+-- Test 2 using a list of tuples containing first the expression
 -- to be parsed, and second the expected output of the parse function.
 -- Next, it is tested by a function that tests if the parsed
--- outcome is equal to the expected outcome.
+-- outcome is equal to the expected outcome. This way,
+-- also cases with too many ending brackets are tested.
+
+-- We chose this solution because our implementations were similar,
+-- but this one also uses the random test generator from exercise 4,
+-- so QuickCheck testing is possible.
 
 module Lab3 where
 
@@ -13,11 +24,6 @@ import Test.QuickCheck
 import Lecture3
 import Ex4
 
--- Test using the form generator from exercise 4
--- First, the form is turned into the string representation
--- Next, this string representation is parsed and then again
--- turned into the string representation. This function
--- checks if those are equal.
 testGenerated :: Form -> Bool
 testGenerated x = formString == showLst (parse formString)
     where formString = showLst [x]
