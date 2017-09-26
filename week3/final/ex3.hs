@@ -12,6 +12,9 @@
 -- Simplify conjunction between equivalent expressions to one of the expressions
 -- Simplify disjunction between equivalent expressions to one of the expressions
 
+-- We chose this solution because we shared our ideas while implementing,
+-- so we all contributed to it. This one turned out to be the most complete.
+
 module Ex3 where
 
 import Data.List

@@ -1,10 +1,13 @@
 -- About 1 hour
 
 -- Testing if the cnf of a form is equivalent to the original form.
--- Testing if the cnf is not a disjunction containing conjunctions
+-- Testing if the cnf is not a disjunction containing conjunctions.
 -- Also testing if the property names in the cnf are a subset of the
 -- property names in the original form. No new property names should be introduced,
 -- but some could be left out because of simplification.
+
+-- We chose this solution because our random form generators were similar,
+-- but this implementation has more properties that are being tested.
 
 module Ex4 where
 
