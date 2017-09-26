@@ -57,6 +57,11 @@ propD1 (Set s1) (Set s2) = diff == t
         diff = differenceSet (Set s1) (Set s2)
         t = deleteSets inter combined
 
+-- Property that all elements in the difference set should only belong to one of the original sets
+--propD2 :: Set Int -> Set Int -> Bool
+--propD2 s1 s2 = do
+--    let 
+
 main = do
     s1 <- randomList
     s2 <- randomList
