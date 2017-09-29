@@ -8,6 +8,7 @@ import Data.List
 import Test.QuickCheck
 import System.Random
 import SetOrd
+import Data.Char
 
 type Var = String
 
@@ -55,20 +56,23 @@ showDj [] = ""
 showDj (cond:conds) = show cond ++ " || " ++ showDj conds
 
 instance Show Statement where
-    show (Ass var expr) = (show var) ++ " = " ++ (show expr)
+    show (Ass var expr) = (show var) ++ " := " ++ (show expr)
     show (Cond cond thenStmt elseStmt) = "if (" ++ (show cond) ++ ") " ++
-                                         "then { " ++ (show thenStmt) ++ " } " ++  
-                                         "else { " ++ (show elseStmt) ++ " }"
+                                         "then {\n" ++ (show thenStmt) ++ " } " ++  
+                                         "else {\n" ++ (show elseStmt) ++ " }"
     show (Seq lst) = showSeq lst
     show (While cond stmt) = "while (" ++ (show cond) ++ ") " ++
-                             "do { " ++ (show stmt) ++ " }"
+                             " {\n" ++ (show stmt) ++ "}"
 
 showSeq :: [Statement] -> String
 showSeq [] = ""
-showSeq (stmt:stmts) = show stmt ++ "; " ++ showSeq stmts
+showSeq ((Ass var expr):stmts) = show var ++ " := " ++ show expr ++ ";\n" ++ showSeq stmts
+showSeq (stmt:stmts) = show stmt ++ showSeq stmts
 
 data Token
-    = TokenPlus
+    = TokenInt Integer
+    | TokenVar String
+    | TokenPlus
     | TokenMinus
     | TokenMult
     | TokenEq
@@ -79,11 +83,59 @@ data Token
     | TokenDj
     | TokenAss
     | TokenIf
+    | TokenThen
+    | TokenElse
     | TokenSeq
     | TokenWhile
-    | TokenBracket
+    | TokenOP
+    | TokenCP
+    | TokenOB
+    | TokenCB
 
 lexer :: String -> [Token]
 lexer [] = []
 lexer (c:cs) | isSpace c = lexer cs
-             | isDigit c = lex
+             | isDigit c = lexNum (c:cs)
+lexer ('(':cs) = TokenOP : lexer cs
+lexer (')':cs) = TokenCP : lexer cs
+lexer ('{':cs) = TokenOB : lexer cs
+lexer ('}':cs) = TokenCB : lexer cs
+lexer ('+':cs) = TokenPlus : lexer cs
+lexer ('-':cs) = TokenMinus : lexer cs
+lexer ('*':cs) = TokenMult : lexer cs
+lexer ('=':'=':cs) = TokenEq : lexer cs
+lexer ('<':cs) = TokenLt : lexer cs
+lexer ('>':cs) = TokenGt : lexer cs
+lexer ('!':cs) = TokenNg : lexer cs
+lexer ('&':'&':cs) = TokenCj : lexer cs
+lexer ('|':'|':cs) = TokenDj : lexer cs
+lexer (':':'=':cs) = TokenAss : lexer cs
+lexer ('i':'f':cs) = TokenIf : lexer cs
+lexer ('t':'h':'e':'n':cs) = TokenThen : lexer cs
+lexer ('e':'l':'s':'e':cs) = TokenElse : lexer cs
+lexer (';':cs) = TokenSeq : lexer cs
+lexer ('w':'h':'i':'l':'e':cs) = TokenWhile : lexer cs
+
+lexNum cs = TokenInt (read num) : lexer rest
+    where (num, rest) = span isDigit cs
+
+type Parser a b = [a] -> [(b, [a])]
+
+succeed :: b -> Parser a b
+succeed x xs = [(x, xs)]
+
+parseExpr :: Parser Token Expr
+parseExpr (TokenInt i : tokens) = [(I i, tokens)]
+parseExpr (TokenVar v : tokens) = [(V v, tokens)]
+--parseExpr (TokenPlus : tokens) = 
+
+--parseCond:: Parser Token Condition
+
+--parseStatement :: Parser Token Statement
+--parseStatement (TokenAss : tokens) = [(I x, tokens)]
+
+
+--parse :: String -> [Statement]
+--parse s = [ f | (f, _) <- parseForm (lexer s)]
+
+--Seq [Ass "x" (I 0), Ass "y" (I 1), While (Gt (V "n") (I 0)) (Seq [Ass "z" (V "x"), Ass "x" (V "y"), Ass "y" (Add (V "z") (V "y")), Ass "n" (Subtr (V "n") (I 1))])]
