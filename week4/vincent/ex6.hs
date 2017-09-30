@@ -2,7 +2,7 @@
 -- Name: Vincent Jong
 -- Time: 11:20 - 12:25 (Programming), (Testing), (Answering)
 
-module Ex6 (trClos) where
+module Ex6 (isTrans, trClos) where
 
 import Data.List
 import Test.QuickCheck

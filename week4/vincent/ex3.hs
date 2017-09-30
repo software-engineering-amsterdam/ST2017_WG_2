@@ -9,12 +9,12 @@
 
 -- Difference set is created by first unifying the 2 sets (removing duplicates). Then the intersection is calculated
 -- and then subtracted from the union. Another possible approach is by checking for each element of a set if it does
--- not exist in the other set and putting that in another set. But this has to be done both ways (s1 -> s2 and s2 -> s1).
+-- not exist in the other set, and putting that in another set. But this has to be done both ways (s1 -> s2 and s2 -> s1).
 -- The properties I checked is (1) that all elements in the difference set can only belong to one of the original sets
 -- and (2) checking if the difference is indeed the union of the 2 sets minus the intersection.
 -- Both my own test generator and quickCheck reported no errors.
 
-module Ex3 where
+module Ex3 (intersectionSet, differenceSet, deleteSets) where
 
 import Data.List
 import Test.QuickCheck
@@ -22,7 +22,7 @@ import System.Random
 import SetOrd
 import Ex2
 
-intersectionSet :: Set Int -> Set Int -> Set Int
+intersectionSet :: (Ord a) => Set a -> Set a -> Set a
 intersectionSet (Set []) (Set []) = emptySet
 intersectionSet (Set []) s2 = emptySet
 intersectionSet s1 (Set []) = emptySet
@@ -30,13 +30,13 @@ intersectionSet (Set (s:s1)) s2 = if inSet s s2
     then unionSet (insertSet s emptySet) (intersectionSet (Set s1) s2) 
     else intersectionSet (Set s1) s2
 
-differenceSet :: Set Int -> Set Int -> Set Int
+differenceSet :: (Ord a) => Set a -> Set a -> Set a
 differenceSet (Set s1) (Set s2) = do
     let combined = list2set (nub (s1 ++ s2))
     let intersection = intersectionSet (Set s1) (Set s2)
     deleteSets intersection combined
 
-deleteSets :: Set Int -> Set Int -> Set Int
+deleteSets :: (Ord a) => Set a -> Set a -> Set a
 deleteSets (Set []) s2 = s2
 deleteSets (Set (s:s1)) s2 = do
     let nlist = deleteSet s s2
