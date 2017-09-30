@@ -1,8 +1,8 @@
 -- About 1 hour
 
 -- We can use QuickCheck, as a Rel is just an array of tuples of Ords.
--- Using a format like quickCheck (propTcSubset::(Rel Int) -> Bool)
--- lets QuickCheck now what datatype to use for the relation.
+-- Using a format like quickCheck (propTcSubset::(Rel Int) -> Bool),
+-- QuickCheck knows what datatype to use for the relation.
 -- Therefore, we do not need to build an own arbritrary Rel generator
 -- like for Sets in exercise 2.
 
