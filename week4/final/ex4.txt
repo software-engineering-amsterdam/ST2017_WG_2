@@ -1,0 +1,5 @@
+Quetions:
+
+- Page 158: Why is dom(AxB) equal to A?
+- Page 168: What is the purpose of "pre-order", "strict partial order" and "partial order" and why do we need these labels?
+- Page 169: Why is (R*)^-1 equal to (R^-1)*
