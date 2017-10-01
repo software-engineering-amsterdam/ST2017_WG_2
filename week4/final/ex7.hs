@@ -1,4 +1,5 @@
 -- About 1 hour
+-- We chose this solution because it the best implementation of our group.
 
 -- A random Rel generator is used for generating test cases.
 -- However, we can also very simple just use QuickCheck,

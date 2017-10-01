@@ -1,4 +1,5 @@
 -- About 5min
+-- We chose this solution because it the best implementation of our group.
 
 -- The symmetric closure is the ordered list of the original
 -- relation with all its inversed pairs added.

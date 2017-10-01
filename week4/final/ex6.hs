@@ -1,4 +1,5 @@
 -- About 15 minutes
+-- We chose this solution because it the best implementation of our group.
 
 -- The transitive closure is called recursively until the resulting relation is transitive.
 -- If the resulting relation is transitive, it is sorted and returned.
