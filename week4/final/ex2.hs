@@ -1,7 +1,7 @@
 -- 1 hour and 10 minutes
 
--- Own generator also able to produce a list of random length and random integers that are possibly negative.
--- The outcomes resemble those of the QuickCheck generator.
+-- We chose this generator because it is able to produce a list of random length and random integers that are possibly negative.
+-- The outcomes resemble those of the QuickCheck generator. Other implementations only produced positive integers.
 
 module Ex2 where
 
