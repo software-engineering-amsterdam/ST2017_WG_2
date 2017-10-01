@@ -38,7 +38,6 @@ isSymmetric :: Ord a => Rel a -> Bool
 isSymmetric r = all (\(x, y) -> (y, x) `elem` r) r
 
 -- Random Rel generator --
-
 randomTuple :: IO(Int, Int)
 randomTuple = do
     n <- randomRIO (0, 10)
@@ -65,9 +64,7 @@ testR k n f = if k == n then print (show n ++ " tests passed")
 ownTest :: ((Rel Int) -> Bool) -> IO ()
 ownTest f = testR 1 100 f
 
-
--- Symmetric closure --
-
+-- Symmetric closure properties --
 propScSubset :: Ord a => Rel a -> Bool
 propScSubset r = all (\x -> x `elem` sc) r
     where sc = symClos r
@@ -77,7 +74,7 @@ propScSymmetric r = isSymmetric sc
     where sc = symClos r
 
 propRSymmetric :: Ord a => Rel a -> Bool
-propRSymmetric r = isSymmetric r --> r == sc
+propRSymmetric r = isSymmetric r --> sort r == sc
     where sc = symClos r
 
 propScSc :: Ord a => Rel a -> Bool
@@ -89,8 +86,7 @@ propScSorted r = sort sc == sc
     where sc = symClos r
 
 
--- Transitive closure--
-
+-- Transitive closure properties --
 propTcSubset :: Ord a => Rel a -> Bool
 propTcSubset r = all (\x -> x `elem` tc) r
     where tc = trClos r
