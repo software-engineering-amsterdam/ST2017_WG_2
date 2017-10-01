@@ -1,4 +1,7 @@
-module Lab4Ex8 where
+-- About 5 hours
+-- We chose for this solution because this one implemented read and a partial show while other teammembers only had show.
+
+module Ex9 where
 
 import Lecture4
 import Data.List
@@ -115,7 +118,7 @@ parseConditions tokens =
    [(f:fs, rest) | (f,ys) <- parseCondition tokens,
                    (fs,rest) <- parseConditions ys ]
 
-runLab4Ex8 = do
+main = do
     -- Show
     let input = "(\\== a a)"
     putStrLn (show fib)
