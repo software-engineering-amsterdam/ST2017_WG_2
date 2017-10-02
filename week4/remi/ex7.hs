@@ -77,7 +77,7 @@ propScSymmetric r = isSymmetric sc
     where sc = symClos r
 
 propRSymmetric :: Ord a => Rel a -> Bool
-propRSymmetric r = isSymmetric r --> r == sc
+propRSymmetric r = isSymmetric r --> sort r == sc
     where sc = symClos r
 
 propScSc :: Ord a => Rel a -> Bool
