@@ -1,4 +1,4 @@
--- Started 10:30
+-- About 2 hours
 
 -- It is possible to generate minimal sudoku's with up to 4 empty blocks.
 -- Proof: https://puzzling.stackexchange.com/a/319
@@ -8,7 +8,7 @@
 
 -- This approach randomly clears n blocks and tries to minimalize
 -- the result. If possible, a minimal sudoku is returned.
--- If not possible, and the number of empty blocks is less then 5,
+-- If not possible, and the number of empty blocks is less than 5,
 -- the process is repeated until a minimal sudoku is found.
 -- If the number of empty blocks is more than 4,
 -- a non-minimal sudoku is returned.
