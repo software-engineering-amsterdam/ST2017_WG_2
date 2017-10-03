@@ -17,9 +17,7 @@
 -- | 1 4 2 | 5 6 3 | 8 9 7 |
 -- +-------+-------+-------+
 
-module Ex1
-
-where
+module Ex1 where
 
 import Data.List
 import System.Random

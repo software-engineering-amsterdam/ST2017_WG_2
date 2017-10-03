@@ -6,9 +6,7 @@
 -- and concatenating the constrant to line 35. While the original code needed changes and additions
 -- at several places in the code, this solution is a lot simpler.
 
-module Ex2
-
-where
+module Ex2 where
 
 import Data.List
 import System.Random
