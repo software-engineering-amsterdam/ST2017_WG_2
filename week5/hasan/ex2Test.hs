@@ -31,10 +31,3 @@ runEx2Test = do
     endTime2 <- getPOSIXTime
     putStr "\tTime taken:\n\t"
     print (endTime2 - startTime2)
-    --let x = Lecture5.solveNs (Lecture5.initNode example7)
-    --(sequence . fmap Lecture5.showNode) x
-    --let y = Ex2.solveNs (Ex2.initNode example7)
-    --(sequence . fmap Ex2.showNode) y
-    --print (valid y)
-    
-    
