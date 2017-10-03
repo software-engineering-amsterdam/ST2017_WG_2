@@ -9,7 +9,7 @@
 -- but changed the code to only run 5 tests
 -- so the waiting time is acceptable.
 
-module Lab5 where
+module Ex3 where
 
 import Data.List
 import System.Random
@@ -27,9 +27,9 @@ eraseHints s = [eraseN s n | n <- fp]
 -- removed have more than 1 solution.
 -- To do that, "take 2" is used as we don't need to know the exact number of solutions,
 -- only if that number is more than 1.
--- Using take 2 could save a lot of time, because of lazy evaluation.
+-- Using take 2 saves a lot of time, because of lazy evaluation.
 testMinimal :: Node -> Bool
-testMinimal s = length (solveNs [s]) == 1 && all (\x -> length (take 2 (solveNs [x])) == 2) e
+testMinimal s = uniqueSol s && all (\x -> length (take 2 (solveNs [x])) == 2) e
     where e = eraseHints s
 
 -- Own test function, using method from lecture 2 slides
