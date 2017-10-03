@@ -1,11 +1,17 @@
 -- Started 10:30
 
+-- It is possible to generate minimal sudoku's with up to 4 empty blocks.
+-- Proof: https://puzzling.stackexchange.com/a/319
+
+-- Of course, it is possible to generate non-minimal sudoku's with 5 empty blocks,
+-- by simply clearing 5 blocks from an already solved sudoku.
+
 -- This approach randomly clears n blocks and tries to minimalize
 -- the result. If possible, a minimal sudoku is returned.
--- If not possible, a non-minimal sudoku with n empty blocks is returned.
-
--- It is possible to generate minimal sudoku's with up to 4 empty blocks.
--- Proof:  https://puzzling.stackexchange.com/a/319
+-- If not possible, and the number of empty blocks is less then 5,
+-- the process is repeated until a minimal sudoku is found.
+-- If the number of empty blocks is more than 4,
+-- a non-minimal sudoku is returned.
 
 -- An example of a minimal sudoku with 4 empty blocks is:
 -- +-------+-------+-------+
@@ -51,7 +57,8 @@ emptyBlockProblem :: Int -> IO Node
 emptyBlockProblem n = do
     r <- genRandomSudoku
     b <- randomize [0..8]
-    return (eraseBlocks r (take n b))
+    let p = eraseBlocks r (take n b)
+    if n > 4 || uniqueSol p then return p else emptyBlockProblem n
 
 -- Generate minimal problem with n erased blocks
 minimalEmptyBlockProblem :: Int -> IO Node
@@ -60,6 +67,5 @@ minimalEmptyBlockProblem n = do
     genProblem e
 
 main4 = do
-    p <- minimalEmptyBlockProblem 5
+    p <- minimalEmptyBlockProblem 3
     showNode p
-    print (testMinimal p)
