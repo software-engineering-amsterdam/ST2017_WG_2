@@ -1,3 +1,11 @@
+-- About 2 hours
+
+-- This refactoring makes the formulation of constraints more uniform
+-- by translating the new constrnt format to the old constraint format.
+-- Now, to add a constraint, only thing to do is adding a new constraint below line 31
+-- and concatenating the constrant to line 35. While the original code needed changes and additions
+-- at several places in the code, this solution is a lot simpler.
+
 module Ex2
 
 where
