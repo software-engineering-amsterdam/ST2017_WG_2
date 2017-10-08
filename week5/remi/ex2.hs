@@ -2,8 +2,10 @@
 
 -- This refactoring makes the formulation of constraints more uniform.
 -- Now, to add a constraint, only thing to do is adding a new constraint below line 31
--- and concatenating the constrant to line 35. While the original code needed changes and additions
+-- and concatenating the constraint to line 35. While the original code needed changes and additions
 -- at several places in the code, this solution makes adding constraints a lot simpler.
+
+-- Performance test is in ex2Test.hs
 
 module Ex2 where
 
