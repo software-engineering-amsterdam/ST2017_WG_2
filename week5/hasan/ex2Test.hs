@@ -27,7 +27,7 @@ consistentHelper :: [Lecture5.Node] -> Bool
 consistentHelper [] = True
 consistentHelper ((s, xs):aa) = Lecture5.consistent s && consistentHelper aa
 
-sudokus = [Lecture5.example1, Lecture5.example2, Lecture5.example3, Lecture5.example4]
+sudokus = concat (take 100 (repeat [Lecture5.example1, Lecture5.example2, Lecture5.example3, Lecture5.example4]))
 
 runWithEx1Test = do
     putStrLn "Ex1:"
