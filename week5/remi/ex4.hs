@@ -13,6 +13,7 @@
 -- If the number of empty blocks is more than 4,
 -- a non-minimal sudoku is returned.
 
+-- The main4 function generates a minimal sudoku with 4 empty blocks.
 -- An example of a minimal sudoku with 4 empty blocks is:
 -- +-------+-------+-------+
 -- |       |       | 2 7   |
@@ -67,5 +68,5 @@ minimalEmptyBlockProblem n = do
     genProblem e
 
 main4 = do
-    p <- minimalEmptyBlockProblem 3
+    p <- minimalEmptyBlockProblem 4
     showNode p
