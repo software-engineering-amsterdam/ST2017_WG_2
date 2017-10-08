@@ -21,7 +21,7 @@ import System.Random
 import Lecture5
 import Ex2
 
--- Measure ex1 performance on generating 100 sudoku problems
+-- Measure ex1 performance on generating 1000 sudoku problems
 generate100Ex1 :: Integer -> Integer -> IO ()
 generate100Ex1 k n = if k == n then print "done "
                 else do
@@ -31,7 +31,7 @@ generate100Ex1 k n = if k == n then print "done "
 
 measure1 = generate100Ex1 0 1000
 
--- Measure ex2 performance on generating 100 sudoku problems
+-- Measure ex2 performance on generating 1000 sudoku problems
 generate100Ex2 :: Integer -> Integer -> IO ()
 generate100Ex2 k n = if k == n then print "done "
                 else do
