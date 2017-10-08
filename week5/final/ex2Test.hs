@@ -1,5 +1,12 @@
 -- TEST REPORT
--- Shoutout to Vincent and Hasan for discovering the command ":set +s"
+-- Vincent discovered the command ":set +s".
+-- Using this command, ghci shows the execution time and
+-- memory usage of function calls.
+
+-- So, we run the program as follows:
+-- :set +s
+-- measure1
+-- measure2
 
 -- Performance and memory tested by generating 1000 sudoku problems with each implementation
 
@@ -11,8 +18,8 @@
 
 -- This shows the Ex2 implementation is significantly slower and uses a lot more memory.
 -- This can be explained by the fact that "Constrnt" is a new 'layer' on top of the
--- existing "Constraint" in Lecture5, so more memory is needed.
-
+-- existing "Constraint" in Lecture5, so more memory is needed. Also the 'elem'
+-- function is used a lot, which increases the running time.
 
 module Ex2Test where
 
@@ -21,7 +28,7 @@ import System.Random
 import Lecture5
 import Ex2
 
--- Measure ex1 performance on generating 1000 sudoku problems
+-- Measure Lecture5 performance on generating 1000 sudoku problems
 generate100Ex1 :: Integer -> Integer -> IO ()
 generate100Ex1 k n = if k == n then print "done "
                 else do
