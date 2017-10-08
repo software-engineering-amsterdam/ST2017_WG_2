@@ -1,5 +1,6 @@
 -- TEST REPORT
 -- Vincent discovered the command ":set +s".
+-- Inspiration: https://stackoverflow.com/questions/6766450/haskell-function-execution-time
 -- Using this command, ghci shows the execution time and
 -- memory usage of function calls.
 
