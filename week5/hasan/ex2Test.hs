@@ -6,12 +6,12 @@
 -- Ex1:
 --         All consistent:
 --         True
--- (0.30 secs, 12,887,936 bytes)
+-- (0.41 secs, 12,887,936 bytes)
 -- *Ex2Test> runWithEx2Test
 -- Ex2:
 --         All consistent:
 --         True
--- (0.03 secs, 12,868,528 bytes)
+-- (0.07 secs, 18,062,800 bytes)
 -- *Ex2Test>
 
 -- Above shows the correctness of both solutions as well the effiency with memory and speed
@@ -29,14 +29,14 @@ consistentHelper ((s, xs):aa) = Lecture5.consistent s && consistentHelper aa
 
 sudokus = [Lecture5.example1, Lecture5.example2, Lecture5.example3, Lecture5.example4]
 
-runWithEx2Test = do
-    putStrLn "Ex2:"
+runWithEx1Test = do
+    putStrLn "Ex1:"
     let allConsistent = all (\sud -> consistentHelper (Lecture5.solveNs (Lecture5.initNode sud))) sudokus
     putStr "\tAll consistent:\n\t"
     print allConsistent
     
-runWithEx1Test = do
-    putStrLn "Ex1:"
-    let allConsistent = all (\sud -> consistentHelper (Lecture5.solveNs (Lecture5.initNode sud))) sudokus
+runWithEx2Test = do
+    putStrLn "Ex2:"
+    let allConsistent = all (\sud -> consistentHelper (Ex2.solveNs (Ex2.initNode sud))) sudokus
     putStr "\tAll consistent:\n\t"
     print allConsistent
