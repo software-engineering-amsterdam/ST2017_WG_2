@@ -267,7 +267,7 @@ solveAndShow :: Grid -> IO[()]
 solveAndShow gr = solveShowNs (Ex2.initNode gr)
 
 solveShowNs :: [Node] -> IO[()]
-solveShowNs = sequence . fmap showNode . Ex2.solveNs
+solveShowNs = sequence . fmap Ex2.showNode . Ex2.solveNs
 
 example1 :: Grid
 example1 = [[5,3,0,0,7,0,0,0,0],
@@ -382,7 +382,7 @@ genRandomSudoku :: IO Node
 genRandomSudoku = do [r] <- rsolveNs [emptyN]
                      return r
 
-randomS = genRandomSudoku >>= showNode
+randomS = Ex2.genRandomSudoku >>= Ex2.showNode
 
 uniqueSol :: Node -> Bool
 uniqueSol node = singleton (Ex2.solveNs [node]) where 
@@ -416,9 +416,9 @@ genProblem n = do ys <- randomize xs
 mainL :: IO ()
 mainL = do 
     [r] <- rsolveNs [emptyN]
-    showNode r
-    s  <- genProblem r
-    showNode s
+    Ex2.showNode r
+    s  <- Ex2.genProblem r
+    Ex2.showNode s
 
 tGrid :: Grid
 tGrid = [
