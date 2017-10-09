@@ -34,7 +34,7 @@ blockConstrnt = [[(r,c)| r <- b1, c <- b2 ] | b1 <- blocks, b2 <- blocks ]
 nrcConstrnt = [[(r,c)| r <- b1, c <- b2 ] | b1 <- subblocks, b2 <- subblocks ]
 
 allConstrnts :: Constrnt
-allConstrnts = rowConstrnt ++ columnConstrnt ++ blockConstrnt
+allConstrnts = rowConstrnt ++ columnConstrnt ++ blockConstrnt ++ nrcConstrnt
 
 freeAtPos :: Sudoku -> Position -> Constrnt -> [Value]
 freeAtPos s (r,c) xs = let
