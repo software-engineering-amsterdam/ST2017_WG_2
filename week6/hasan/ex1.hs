@@ -1,10 +1,12 @@
+-- About 2 hours
+-- Result not able to run due to Criterion problem
+
 module Ex1 where
 
 import Criterion.Main
 import Lecture2
 import Lecture6
 
--- expM x y = rem (x^y)
 exMCustom :: Integer -> Integer -> Integer -> Integer
 exMCustom a b c = 
     if b == 0 then 1 `mod` c
