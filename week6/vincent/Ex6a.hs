@@ -1,4 +1,4 @@
--- Time: 10:00 - 
+-- Time: 10:00 - 11:00 (about 1 hr)
 
 -- With k = 1, the Miller Rabin test find a lot of numbers that aren't actually prime.
 -- *Ex6> main
