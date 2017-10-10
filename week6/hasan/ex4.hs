@@ -8,9 +8,7 @@ import Control.Monad
 check1 :: [Integer] -> IO Integer
 check1 (c:cc) = do
     res <- primeTestsF 1 c
-    if res then return c else do 
-        res2 <- (check1 cc)
-        return res2
+    if res then return c else do (check1 cc)
 
 main = do
     res <- check1 compositesCustom
