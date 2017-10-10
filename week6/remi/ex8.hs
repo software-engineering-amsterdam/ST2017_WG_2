@@ -12,9 +12,9 @@ oddRandomInt m n = do
     r <- randomRIO (m, n)
     if r `mod` 2 == 0 then oddRandomInt m n else return r
 
--- Takes k for the MR primality check and an odd int
--- If the odd int is prime, the int is returned
--- Otherwise, 2 is added to the prime until a prime number is found
+-- Takes k for the MR primality check and an odd integer
+-- If the odd integer is prime, it is returned
+-- Otherwise, 2 is added to the integer until a prime number is found
 closestPrime :: Integer -> Integer -> IO Integer
 closestPrime k p = do
         r <- primeMR (fromIntegral k) p
