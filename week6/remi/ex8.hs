@@ -10,7 +10,7 @@ import Lecture6
 oddRandomInt :: Integer -> Integer -> IO Integer
 oddRandomInt m n = do
     r <- randomRIO (m, n)
-    if r `mod` 2 == 0 then oddRandomInt m n else return r
+    if r `mod` 2 == 0 then return (r+1) else return r
 
 -- Takes k for the MR primality check and an odd integer
 -- If the odd integer is prime, it is returned
