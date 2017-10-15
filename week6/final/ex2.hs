@@ -47,7 +47,7 @@
 -- std dev              566.4 ns   (274.0 ns .. 778.7 ns)
 -- variance introduced by outliers: 53% (severely inflated)
 --
--- It shows that the Right-to-left binary method is extremely fast in comaprion to the naive approach
+-- It shows that the Right-to-left binary method is extremely fast in comparison to the naive approach
 -- when applying to huge exponents with larger base. The case where the exponent is small but the base is large
 -- gives the worst performance for this algorithm, since it is not optimised for small exponents.
 
