@@ -7,3 +7,6 @@ import Lecture6
 
 composites :: [Integer]
 composites = [x | x <- [4..], not (prime x)]
+
+main = do
+    print Ex3.composites
