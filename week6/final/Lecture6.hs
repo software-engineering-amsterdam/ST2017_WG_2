@@ -148,7 +148,7 @@ primeMR k n = do
     then return False else primeMR (k-1) n
 
 composites :: [Integer]
-composites = 4 : filter (\x -> not (prime x)) [6..]
+composites = [x | x <- [4..], not (prime x)]
 
 encodeDH :: Integer -> Integer -> Integer -> Integer
 encodeDH p k m = m*k `mod` p
