@@ -3,7 +3,6 @@
 module Ex1 (exMEfficient) where
 
 import Data.Bits
-import Lecture6
 
 -- Implemented from the Right-to-left binary method pseudocode from https://en.wikipedia.org/wiki/Modular_exponentiation
 -- The original comes from Applied Cryptography by Bruce Schneier.
@@ -18,5 +17,4 @@ exMEfficientStep base expo modulus c
     where nextC = if expo `mod` 2 == 1 then (c * base) `mod` modulus else c
 
 main = do
-    print (expM 98328 168277 17982571)
     print (exMEfficient 98328 168277 17982571)

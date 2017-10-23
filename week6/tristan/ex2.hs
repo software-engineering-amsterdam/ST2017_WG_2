@@ -47,7 +47,7 @@
 --
 -- It shows that the Right-to-left binary method is extremely fast in comaprion to the naive approach
 -- when applying to huge exponents with larger base. The case where the exponent is small but the base is large
--- gives the worst performance for this algorithm, since it is not optimised for small exponents.
+-- gives the worst performance ∏for this algorithm, since it is not optimised for small exponents.
 
 
 import Ex1
